@@ -56,3 +56,8 @@ function implementDrag() {
 }
 
 implementDrag()
+
+// reload btn
+document.querySelector(".refresh").addEventListener("click", () => {
+    location.reload()
+})
