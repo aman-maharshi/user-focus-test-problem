@@ -1,7 +1,7 @@
 /*
     INITIALIZAITON
 */
-let tags = ["HTML", "CSS", "Python"]
+let tags = ["HTML", "CSS", "JavaScript"]
 
 let tagsContainer = document.querySelector(".tags__container")
 let addTagInput = document.querySelector(".add-tag__input")
