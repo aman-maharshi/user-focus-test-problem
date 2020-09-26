@@ -12,17 +12,7 @@ let containers = document.querySelectorAll(".box")
 
 addTagBtn.addEventListener("click", addNewTag)
 
-function showTags() {
-    let tagString = ""
-    tags.forEach(item => {
-        tagString += `<div class="tag" draggable="true">${item}</div>`
-    })
-    tagsContainer.innerHTML = tagString
-    draggables = document.querySelectorAll(".tag")
-    implementDrag()
-}
-showTags()
-
+// add new tag to the array
 function addNewTag() {
     let newTagContent = addTagInput.value
     if (newTagContent != "") {
@@ -32,17 +22,38 @@ function addNewTag() {
     addTagInput.value = ""
 }
 
+// build tag DOM Elements from the array and show them
+function showTags() {
+    let tagString = ""
+    tags.forEach(item => {
+        tagString += `<div class="tag" draggable="true">${item}</div>`
+    })
+    tagsContainer.innerHTML = tagString
+    draggables = document.querySelectorAll(".tag")
+    implementDrag()
+}
+
+// show the initial tags
+showTags()
+
 /* 
     DRAG FUNCTIONALITY
 */
 
 function implementDrag() {
+    let draggedFrom, draggedTo
     draggables.forEach(item => {
         item.addEventListener("dragstart", () => {
             item.classList.add("dragging")
+            draggedFrom = item.parentElement
         })
         item.addEventListener("dragend", () => {
             item.classList.remove("dragging")
+            draggedTo = item.parentElement
+            if (draggedFrom != draggedTo) {
+                // removing the moved item from the array
+                tags.splice(tags.indexOf(item.textContent), 1)
+            }
         })
     })
 
@@ -54,8 +65,6 @@ function implementDrag() {
         })
     })
 }
-
-implementDrag()
 
 // reload btn
 document.querySelector(".refresh").addEventListener("click", () => {
